@@ -87,5 +87,5 @@ async function basepeak() {
 basepeak().then((res) => console.log(res));
 
 exports.handler = async function(event, context) {
-    return basepeak();
+    return JSON.stringify(basepeak());
 }
