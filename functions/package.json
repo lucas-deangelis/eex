@@ -1,0 +1,10 @@
+{
+  "name": "functions",
+  "version": "1.0.0",
+  "description": "",
+  "main": "eex-api.js",
+  "author": "",
+  "dependencies": {
+    "axios": "0.21"
+  }
+}
