@@ -92,8 +92,11 @@ async function basepeak(testing) {
   };
 }
 
-basepeak().then((res) => console.log(res));
+// basepeak().then((res) => console.log(res));
 
-// exports.handler = async function(event, context) {
-//     return JSON.stringify(basepeak(testing));
-// }
+exports.handler = async function(event, context) {
+    return {
+      statusCode: 200,
+      body: JSON.stringify(basepeak(testing)),
+    };
+}
