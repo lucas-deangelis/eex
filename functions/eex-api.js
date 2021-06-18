@@ -36,15 +36,23 @@ function dayToParams(date) {
   return `${year}%2F${month}%2F${day}`;
 }
 
-function createUrl() {
+function createUrl(testing) {
   const url =
     "https://webservice-eex.gvsi.com/query/json/getChain/gv.pricesymbol/gv.displaydate/gv.expirationdate/tradedatetimegmt/gv.eexdeliverystart/ontradeprice/close/onexchsingletradevolume/onexchtradevolumeeex/offexchtradevolumeeex/openinterest/";
   const baseload = "?optionroot=%22%2FE.F7BY%22&";
   const peakload = "?optionroot=%22%2FE.F7PY%22&";
 
-  let today = new Date();
+  let today;
+
+  if (testing) {
+    today = new Date();
+    today.setDate(today.getDate() - 1);
+  } else {
+    today = new Date();
+  }
+
   let yesterday = new Date();
-  yesterday.setDate(yesterday.getDate() - 1);
+  yesterday.setDate(today.getDate() - 1);
 
   const onDate = dayToParams(today);
   const experationDate = dayToParams(yesterday);
@@ -57,8 +65,8 @@ function createUrl() {
   };
 }
 
-async function basepeak() {
-  let urls = createUrl();
+async function basepeak(testing) {
+  let urls = createUrl(testing);
 
   let base_response = await axios.get(urls.baseload, options);
 
@@ -86,6 +94,6 @@ async function basepeak() {
 
 basepeak().then((res) => console.log(res));
 
-exports.handler = async function(event, context) {
-    return JSON.stringify(basepeak());
-}
+// exports.handler = async function(event, context) {
+//     return JSON.stringify(basepeak(testing));
+// }
